@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sangu Snehalatha - Portfolio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color: #e0f7fa; /* Light cyan background */
+    }
+
+    nav {
+      background: linear-gradient(90deg, #1A237E, #424242); /* Dark blue to dark gray */
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      flex-wrap: wrap;
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+
+    nav h2 {
+      display: none;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      transition: background 0.3s, transform 0.2s;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    header {
+      background: linear-gradient(45deg, #004D40, #00796B); /* Dark green to teal */
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    section {
+      display: none;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      transition: opacity 0.5s ease-in-out;
+      opacity: 0;
+    }
+
+    section.active {
+      display: block;
+      opacity: 1;
+    }
+
+    input, button, select, textarea {
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #b0bec5; /* Light blue-gray border */
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #1A237E; /* Dark blue focus */
+      box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.2);
+      outline: none;
+    }
+
+    button {
+      background: #1A237E; /* Dark blue button */
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+      width: auto;
+      display: inline-block;
+    }
+
+    button:hover {
+      background: #283593; /* Slightly lighter dark blue on hover */
+      transform: translateY(-1px);
+    }
+
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+      border-bottom: 2px solid #CFD8DC; /* Lighter gray underline */
+      padding-bottom: 0.5rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 0.7rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem;
+      background-color: #e8f5e9; /* Light green background for list items */
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    ul li button {
+      margin-left: 1rem;
+      background: #D32F2F; /* Red for remove button */
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    ul li button:hover {
+      background: #B71C1C; /* Darker red on hover */
+    }
+
+    #productList {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    #productList div {
+      background: #f1f8e9; /* Very light green */
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    #productList div:hover {
+      transform: translateY(-5px);
+    }
+
+    #productList h3 {
+      color: #388E3C; /* Darker green for product name */
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    #productList p {
+      color: #555;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      background: #263238; /* Dark gray footer */
+      color: white;
+      margin-top: auto;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+
+    #about    { background-color: #fce4ec; } /* Light pink for about */
+    #projects { background-color: #e3f2fd; } /* Light blue for projects */
+    #todo     { background-color: #fffde7; } /* Light yellow for todo */
+    #products { background-color: #e8f5e9; } /* Light green for products */
+    #contact  { background-color: #e0f7fa; } /* Light cyan for contact */
+
+    #contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #contact label {
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 0.2rem;
+      display: block;
+    }
+
+    #contact input[type="text"],
+    #contact input[type="email"],
+    #contact textarea {
+      background-color: #fcfcfc;
+      border: 1px solid #b0bec5;
+      padding: 0.9rem;
+      border-radius: 8px;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    #contact textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    #contact button[type="submit"] {
+      background: #00897B; /* Teal submit button */
+      align-self: flex-start;
+      padding: 0.9rem 2rem;
+      font-size: 1.1rem;
+      border-radius: 8px;
+    }
+
+    #contact button[type="submit"]:hover {
+      background: #00695C; /* Darker teal on hover */
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+        border-radius: 0;
+      }
+
+      nav a {
+        padding: 0.5rem 1rem;
+        text-align: center;
+      }
+
+      main {
+        padding: 1rem;
+      }
+
+      section {
+        padding: 1.5rem;
+      }
+
+      #productList {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a onclick="showPage('about')">About Me</a>
+    <a onclick="showPage('projects')">Projects</a>
+    <a onclick="showPage('todo')">To-Do App</a>
+    <a onclick="showPage('products')">Product Page</a>
+    <a onclick="showPage('contact')">Contact</a>
+  </nav>
+
+  <main>
+    <header>
+      <h1>SANGU SNEHALATHA'S PORTFOLIO</h1>
+    </header>
+
+    <section id="about" class="active">
+      <h2>About Me</h2>
+      <p>Welcome to my Portfolio! I'm Sangu Snehalatha, currently pursuing B.Tech II year in RGUKT.
+        I enjoy creating responsive, user-friendly websites using HTML, CSS, and JavaScript. My aim is to become a full-stack developer and build impactful digital solutions.</p>
+    </section>
+
+    <section id="projects">
+      <h2>My Projects</h2>
+      <ul>
+        <li>Simple Webpage using HTML, CSS, and JavaScript</li>
+        <li>Contact Form with Validation and Responsive Layout</li>
+        <li>Personal Portfolio Website</li>
+        <li>To-Do List App with Local Storage</li>
+        <li>Product Filter and Sort Page</li>
+      </ul>
+    </section>
+
+    <section id="todo">
+      <h2>To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="Enter task" />
+      <button onclick="addTask()">Add Task</button>
+      <ul id="taskList"></ul>
+    </section>
+
+    <section id="products">
+      <h2>Products</h2>
+      <select id="filterCategory">
+        <option value="">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="fashion">Fashion</option>
+        <option value="books">Books</option>
+        <option value="home">Home & Kitchen</option>
+        <option value="sports">Sports & Outdoors</option>
+      </select>
+
+      <select id="sortBy">
+        <option value="default">Sort by</option>
+        <option value="price">Price</option>
+        <option value="rating">Rating</option>
+      </select>
+
+      <div id="productList"></div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <form id="contactForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject">
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+      <p style="margin-top: 1.5rem; text-align: center; color: #666;">
+        Alternatively, you can reach me directly:
+        <br><strong>Email:</strong> <a href="mailto:sangusneha966@gmail.com" style="color: #1A237E; text-decoration: none;">sangusneha966@gmail.com</a>
+        <br><strong>Phone:</strong> +91-1234567890
+        <br><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sneha-sangu" target="_blank" style="color: #1A237E; text-decoration: none;">https://www.linkedin.com/in/sneha-sangu</a>
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2025 Sangu Snehalatha. All rights reserved.
+  </footer>
+
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll("section").forEach(sec => {
+        sec.classList.remove("active");
+      });
+      document.getElementById(pageId).classList.add("active");
+    }
+
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+
+    function loadTasks() {
+      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      taskList.innerHTML = "";
+      tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+        li.style.alignItems = "center";
+        li.style.padding = "0.5rem";
+        li.style.backgroundColor = "#e8f5e9";
+        li.style.borderRadius = "6px";
+        li.style.marginBottom = "0.5rem";
+
+        const taskText = document.createElement("span");
+        taskText.textContent = task;
+        taskText.style.flex = "1";
+
+        const buttonsDiv = document.createElement("div");
+        buttonsDiv.style.display = "flex";
+        buttonsDiv.style.gap = "0.5rem";
+
+        const upBtn = document.createElement("button");
+        upBtn.textContent = "↑";
+        upBtn.onclick = () => moveTaskUp(index);
+
+        const downBtn = document.createElement("button");
+        downBtn.textContent = "↓";
+        downBtn.onclick = () => moveTaskDown(index);
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.style.background = "#D32F2F";
+        removeBtn.style.color = "white";
+        removeBtn.style.border = "none";
+        removeBtn.style.padding = "0.4rem 0.8rem";
+        removeBtn.style.borderRadius = "4px";
+        removeBtn.style.cursor = "pointer";
+        removeBtn.onclick = () => removeTask(index);
+
+        removeBtn.onmouseover = () => removeBtn.style.background = "#B71C1C";
+        removeBtn.onmouseout = () => removeBtn.style.background = "#D32F2F";
+
+        buttonsDiv.appendChild(upBtn);
+        buttonsDiv.appendChild(downBtn);
+        buttonsDiv.appendChild(removeBtn);
+
+        li.appendChild(taskText);
+        li.appendChild(buttonsDiv);
+        taskList.appendChild(li);
+      });
+    }
+
+    function addTask() {
+      const task = taskInput.value.trim();
+      if (task) {
+        const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.push(task);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        taskInput.value = "";
+        loadTasks();
+      }
+    }
+
+    function removeTask(index) {
+      const tasks = JSON.parse(localStorage.getItem("tasks"));
+      tasks.splice(index, 1);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      loadTasks();
+    }
+
+    function moveTaskUp(index) {
+      const tasks = JSON.parse(localStorage.getItem("tasks"));
+      if (index > 0) {
+        [tasks[index - 1], tasks[index]] = [tasks[index], tasks[index - 1]];
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        loadTasks();
+      }
+    }
+
+    function moveTaskDown(index) {
+      const tasks = JSON.parse(localStorage.getItem("tasks"));
+      if (index < tasks.length - 1) {
+        [tasks[index + 1], tasks[index]] = [tasks[index], tasks[index + 1]];
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        loadTasks();
+      }
+    }
+
+    const products = [
+      { name: "Quantum Leap Laptop", category: "electronics", price: 75000, rating: 4.8 },
+      { name: "AeroFlow Wireless Earbuds", category: "electronics", price: 4500, rating: 4.5 },
+      { name: "Smart Home Hub X1", category: "electronics", price: 9000, rating: 4.6 },
+      { name: "Ultra HD Monitor 27''", category: "electronics", price: 22000, rating: 4.7 },
+      { name: "Urban Explorer Backpack", category: "fashion", price: 1800, rating: 4.3 },
+      { name: "Classic Denim Jeans", category: "fashion", price: 1200, rating: 4.1 },
+      { name: "Elegant Silk Scarf", category: "fashion", price: 700, rating: 4.0 },
+      { name: "Sporty Performance Shoes", category: "fashion", price: 3000, rating: 4.4 },
+      { name: "The Alchemist", category: "books", price: 300, rating: 4.9 },
+      { name: "Sapiens: A Brief History of Humankind", category: "books", price: 600, rating: 4.7 },
+      { name: "Atomic Habits", category: "books", price: 450, rating: 4.6 },
+      { name: "Educated: A Memoir", category: "books", price: 380, rating: 4.5 },
+      { name: "Smart Coffee Maker", category: "home", price: 5000, rating: 4.2 },
+      { name: "Ergonomic Office Chair", category: "home", price: 8000, rating: 4.5 },
+      { name: "Non-Stick Cookware Set", category: "home", price: 3500, rating: 4.3 },
+      { name: "Air Purifier Pro", category: "home", price: 10000, rating: 4.6 },
+      { name: "Yoga Mat Pro", category: "sports", price: 1200, rating: 4.0 },
+      { name: "Hiking Backpack 50L", category: "sports", price: 2500, rating: 4.4 },
+      { name: "Smart Fitness Tracker", category: "sports", price: 6000, rating: 4.7 },
+      { name: "Camping Tent 4-Person", category: "sports", price: 7000, rating: 4.5 },
+    ];
+
+    const filterCategory = document.getElementById("filterCategory");
+    const sortBy = document.getElementById("sortBy");
+    const productList = document.getElementById("productList");
+
+    function displayProducts(data) {
+      productList.innerHTML = data.map(p => `
+        <div>
+          <h3>${p.name}</h3>
+          <p>Category: ${p.category}</p>
+          <p>Price: ₹${p.price}</p>
+          <p>Rating: ${p.rating}</p>
+        </div>
+      `).join("");
+    }
+
+    function applyFilters() {
+      let filtered = [...products];
+      const category = filterCategory.value;
+      const sort = sortBy.value;
+
+      if (category) {
+        filtered = filtered.filter(p => p.category === category);
+      }
+
+      if (sort === "price") {
+        filtered.sort((a, b) => a.price - b.price);
+      } else if (sort === "rating") {
+        filtered.sort((a, b) => b.rating - a.rating);
+      }
+
+      displayProducts(filtered);
+    }
+
+    filterCategory.onchange = applyFilters;
+    sortBy.onchange = applyFilters;
+
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+      };
+
+      console.log('Form Submitted:', formData);
+      alert('Thank you for your message! I will get back to you soon.');
+      this.reset();
+    });
+
+    window.onload = function () {
+      loadTasks();
+      displayProducts(products);
+      showPage('about');
+    };
+  </script>
+
+</body>
+</html>
